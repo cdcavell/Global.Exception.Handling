@@ -14,4 +14,30 @@
 
 @section scripts
 {
+    <script src="/js/ajax.js" asp-append-version="true"></script>
+    <script>
+
+        $(document).ready(function () {
+
+            ajaxGet('Home/NotFoundException')
+                .then(function (data) {
+                })
+                .catch((error) => {
+                });
+
+            ajaxGet('Home/BadRequestException')
+                .then(function (data) {
+                })
+                .catch((error) => {
+                });
+
+            ajaxGet('Home/SystemException')
+                .then(function (data) {
+                })
+                .catch((error) => {
+                });
+
+        });
+
+    </script>
 }

@@ -1,10 +1,15 @@
 ﻿using Global.Exception.Handling.ExceptionHandlers;
+using Global.Exception.Handling.Extensions;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Serilog;
+using System.Threading;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Global.Exception.Handling.Extensions
 {
@@ -25,6 +30,7 @@ namespace Global.Exception.Handling.Extensions
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddMvc();
             builder.Services.AddControllersWithViews();
+            builder.Services.AddResponseCaching();
 
             // Exception Handlers are called in the order they are registered
             builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
@@ -44,6 +50,7 @@ namespace Global.Exception.Handling.Extensions
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
 
+            app.UseResponseCaching();
             app.UseExceptionHandler("/Error/500");
 
             app.UseRouting();

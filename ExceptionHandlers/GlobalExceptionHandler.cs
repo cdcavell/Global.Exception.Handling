@@ -1,4 +1,5 @@
-﻿using Global.Exception.Handling.Extensions;
+﻿using Global.Exception.Handling.Exceptions;
+using Global.Exception.Handling.Extensions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,14 +17,17 @@ namespace Global.Exception.Handling.ExceptionHandlers
             var problemDetails = new ProblemDetails
             {
                 Status = StatusCodes.Status500InternalServerError,
-                Title = "Server error"
+                Title = "Server Error",
+                Detail = exception.Message
             };
-
 
             httpContext.Response.StatusCode = problemDetails.Status.Value;
 
             if (httpContext.Request.IsAjaxRequest())
+            {
                 await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
+                return true;
+            }
 
             return false;
         }

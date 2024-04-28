@@ -26,6 +26,7 @@ namespace Global.Exception.Handling.Controllers
 
 
         [HttpGet("/Error/{id?}")]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error(int id)
         {
             if (!HttpContext.Response.Headers.ContainsKey("X-Robots-Tag"))
