@@ -27,11 +27,11 @@ namespace Global.Exception.Handling.ExceptionHandlers
             httpContext.Response.StatusCode = problemDetails.Status.Value;
 
             if (httpContext.Request.IsAjaxRequest())
-                await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
+                await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken).ConfigureAwait(false);
             else
             {
                 httpContext.Response.Redirect($"/Error/{problemDetails.Status.Value}");
-                await httpContext.Response.StartAsync().ConfigureAwait(false);
+                await httpContext.Response.StartAsync(cancellationToken).ConfigureAwait(false);
             }
 
             return true;

@@ -31,7 +31,7 @@ namespace Global.Exception.Handling.ExceptionHandlers
             else
             {
                 httpContext.Response.Redirect($"/Error/{problemDetails.Status.Value}");
-                await httpContext.Response.StartAsync().ConfigureAwait(false);
+                await httpContext.Response.StartAsync(cancellationToken).ConfigureAwait(false);
             }
 
             return true;

@@ -25,7 +25,7 @@ namespace Global.Exception.Handling.ExceptionHandlers
 
             if (httpContext.Request.IsAjaxRequest())
             {
-                await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
+                await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken).ConfigureAwait(false);
                 return true;
             }
 

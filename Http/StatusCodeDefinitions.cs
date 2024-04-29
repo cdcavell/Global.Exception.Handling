@@ -5,11 +5,11 @@ namespace Global.Exception.Handling.Http
 {
     public static class StatusCodeDefinitions
     {
-        private static readonly List<KeyValuePair<int, string>> _StatusCodeList = new();
+        private static readonly List<KeyValuePair<int, string>> _StatusCodeList = [];
 
         private static void Load()
         {
-            if (!_StatusCodeList.Any())
+            if (_StatusCodeList.Count == 0)
             {
                 _StatusCodeList.Add(new KeyValuePair<int, string>(400, "Bad Request - The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modifications."));
                 _StatusCodeList.Add(new KeyValuePair<int, string>(404, "Not Found - The server has not found anything matching the Request-URI. No indication is given of whether the condition is temporary or permanent."));
